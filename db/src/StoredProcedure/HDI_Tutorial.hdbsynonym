@@ -1,0 +1,20 @@
+{
+  "com.sap::SCARPLAN": {
+    "target": {
+      "object": "SCARPLAN",
+      "schema": "SFLIGHT"
+    }
+  },
+  "com.sap::STRAVELAG": {
+    "target": {
+      "object": "STRAVELAG",
+      "schema": "SFLIGHT"
+    }
+  },
+  "com.sap::SAIRPORT": {
+    "target": {
+      "object": "SAIRPORT",
+      "schema": "SFLIGHT"
+    }
+  }
+}
