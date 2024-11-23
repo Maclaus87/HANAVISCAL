@@ -1,0 +1,16 @@
+PROCEDURE "SP_VUELOSINTER"( IN P_CONNID VARCHAR(10), out O_SPFLI TABLE (AIRPTO VARCHAR (10), FLTIME VARCHAR (10))  )
+
+   LANGUAGE SQLSCRIPT
+   SQL SECURITY INVOKER
+   --DEFAULT SCHEMA <default_schema_name>
+   --READS SQL DATA
+    AS
+BEGIN
+   /*************************************
+       Write your procedure logic
+   *************************************/
+  O_SPFLI = SELECT AIRPTO, FLTIME
+   FROM "com.sap::SPFLI" WHERE CONNID = :P_CONNID;
+
+
+END
