@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="CalNamePa" applyPrivilegeType="NONE" dataCategory="CUBE" schemaVersion="3.0" hierarchyGeneration="SQL" outputViewType="Aggregation" cacheInvalidationPeriod="NONE" enforceSqlExecution="true" application="BAS">
+<descriptions defaultDescription="CalNamePa"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="com.sap::SBUSPART">
+    <resourceUri>com.sap::SBUSPART</resourceUri>
+  </DataSource>
+  <DataSource id="com.sap::SBOOK">
+    <resourceUri>com.sap::SBOOK</resourceUri>
+  </DataSource>
+</dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="P_SBUSPART">
+    <viewAttributes>
+      <viewAttribute id="MANDANT"/>
+      <viewAttribute id="CONTACT"/>
+      <viewAttribute id="CONTPHONO"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="com.sap::SBUSPART"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="P_SBOOK">
+    <viewAttributes>
+      <viewAttribute id="MANDT"/>
+      <viewAttribute id="LUGGWEIGHT"/>
+      <viewAttribute id="FORCURAM"/>
+      <viewAttribute id="FORCURKEY"/>
+      <viewAttribute id="PASSNAME"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="com.sap::SBOOK"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="J_SBUSPART_SBOOK" cardinality="CN_N" joinType="inner">
+    <viewAttributes>
+      <viewAttribute id="MANDANT"/>
+      <viewAttribute id="PASSNAME"/>
+      <viewAttribute id="FORCURAM" aggregationType="sum"/>
+      <viewAttribute id="FORCURKEY"/>
+      <viewAttribute hidden="true" id="JOIN$CONTACT$PASSNAME"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="P_SBUSPART">
+      <mapping xsi:type="Calculation:AttributeMapping" target="MANDANT" source="MANDANT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$CONTACT$PASSNAME" source="CONTACT"/>
+    </input>
+    <input node="P_SBOOK">
+      <mapping xsi:type="Calculation:AttributeMapping" target="PASSNAME" source="PASSNAME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="FORCURAM" source="FORCURAM"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="FORCURKEY" source="FORCURKEY"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$CONTACT$PASSNAME" source="PASSNAME"/>
+    </input>
+    <joinAttribute name="JOIN$CONTACT$PASSNAME"/>
+  </calculationView>
+</calculationViews>
+
+<logicalModel id="J_SBUSPART_SBOOK">
+  <attributes>
+    <attribute id="MANDANT" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="MANDANT"/>
+      <keyMapping columnObjectName="J_SBUSPART_SBOOK" columnName="MANDANT"/>
+    </attribute>
+    <attribute id="PASSNAME" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="PASSNAME"/>
+      <keyMapping columnObjectName="J_SBUSPART_SBOOK" columnName="PASSNAME"/>
+    </attribute>
+    <attribute id="FORCURKEY" order="4" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="FORCURKEY"/>
+      <keyMapping columnObjectName="J_SBUSPART_SBOOK" columnName="FORCURKEY"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures>
+    <measure id="FORCURAM" order="3" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="FORCURAM"/>
+      <measureMapping columnObjectName="J_SBUSPART_SBOOK" columnName="FORCURAM"/>
+      <exceptionAggregationMetadata/>
+    </measure>
+  </baseMeasures>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+  <localDimensions/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="40" y="85"/>
+    </shape>
+    
+  
+    <shape expanded="true" modelObjectName="P_SBUSPART" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="-33" y="349"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape expanded="true" modelObjectName="P_SBOOK" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="250" y="349"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape expanded="true" modelObjectName="J_SBUSPART_SBOOK" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="100" y="183"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape modelObjectName="P_SBUSPART" modelObjectNameSpace="J_SBUSPART_SBOOK" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="157.5"/>
+    </shape>
+    <shape modelObjectName="P_SBOOK" modelObjectNameSpace="J_SBUSPART_SBOOK" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="161.16845703125"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

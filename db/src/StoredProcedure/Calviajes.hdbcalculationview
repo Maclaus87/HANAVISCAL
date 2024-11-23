@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="Calviajes" applyPrivilegeType="NONE" dataCategory="CUBE" schemaVersion="3.0" hierarchyGeneration="SQL" outputViewType="Aggregation" cacheInvalidationPeriod="NONE" enforceSqlExecution="true" application="BAS">
+<descriptions defaultDescription="Calviajes"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="com.sap::SPFLI">
+    <resourceUri>com.sap::SPFLI</resourceUri>
+  </DataSource>
+  <DataSource id="com.sap::SCARR">
+    <resourceUri>com.sap::SCARR</resourceUri>
+  </DataSource>
+</dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="P_SPFLI">
+    <viewAttributes>
+      <viewAttribute id="MANDT"/>
+      <viewAttribute id="CARRID"/>
+      <viewAttribute id="CONNID"/>
+      <viewAttribute id="AIRPFROM"/>
+      <viewAttribute id="COUNTRYTO"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="com.sap::SPFLI"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="P_SCARR">
+    <viewAttributes>
+      <viewAttribute id="MANDT"/>
+      <viewAttribute id="CARRID"/>
+      <viewAttribute id="CARRNAME"/>
+      <viewAttribute id="CURRCODE"/>
+      <viewAttribute id="URL"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="com.sap::SCARR"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="J_SCARR_SPFLI" cardinality="C1_N" joinType="inner">
+    <viewAttributes>
+      <viewAttribute id="MANDT"/>
+      <viewAttribute id="CARRID"/>
+      <viewAttribute id="CONNID"/>
+      <viewAttribute id="CARRNAME"/>
+      <viewAttribute id="CURRCODE"/>
+      <viewAttribute id="URL"/>
+      <viewAttribute id="AIRPFROM"/>
+      <viewAttribute id="COUNTRYTO"/>
+      <viewAttribute hidden="true" id="JOIN$MANDT$MANDT"/>
+      <viewAttribute hidden="true" id="JOIN$CARRID$CARRID"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="P_SCARR">
+      <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CARRID" source="CARRID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CARRNAME" source="CARRNAME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CURRCODE" source="CURRCODE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="URL" source="URL"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$MANDT$MANDT" source="MANDT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$CARRID$CARRID" source="CARRID"/>
+    </input>
+    <input node="P_SPFLI">
+      <mapping xsi:type="Calculation:AttributeMapping" target="CONNID" source="CONNID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="AIRPFROM" source="AIRPFROM"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="COUNTRYTO" source="COUNTRYTO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$MANDT$MANDT" source="MANDT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$CARRID$CARRID" source="CARRID"/>
+    </input>
+    <joinAttribute name="JOIN$MANDT$MANDT"/>
+    <joinAttribute name="JOIN$CARRID$CARRID"/>
+  </calculationView>
+</calculationViews>
+
+<logicalModel id="J_SCARR_SPFLI">
+  <attributes>
+    <attribute id="MANDT" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="MANDT"/>
+      <keyMapping columnObjectName="J_SCARR_SPFLI" columnName="MANDT"/>
+    </attribute>
+    <attribute id="CARRID" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CARRID"/>
+      <keyMapping columnObjectName="J_SCARR_SPFLI" columnName="CARRID"/>
+    </attribute>
+    <attribute id="CONNID" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CONNID"/>
+      <keyMapping columnObjectName="J_SCARR_SPFLI" columnName="CONNID"/>
+    </attribute>
+    <attribute id="CARRNAME" order="4" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CARRNAME"/>
+      <keyMapping columnObjectName="J_SCARR_SPFLI" columnName="CARRNAME"/>
+    </attribute>
+    <attribute id="CURRCODE" order="5" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CURRCODE"/>
+      <keyMapping columnObjectName="J_SCARR_SPFLI" columnName="CURRCODE"/>
+    </attribute>
+    <attribute id="URL" order="6" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="URL"/>
+      <keyMapping columnObjectName="J_SCARR_SPFLI" columnName="URL"/>
+    </attribute>
+    <attribute id="AIRPFROM" order="7" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="AIRPFROM"/>
+      <keyMapping columnObjectName="J_SCARR_SPFLI" columnName="AIRPFROM"/>
+    </attribute>
+    <attribute id="COUNTRYTO" order="8" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="COUNTRYTO"/>
+      <keyMapping columnObjectName="J_SCARR_SPFLI" columnName="COUNTRYTO"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures/>
+  <calculatedMeasures>
+    <measure id="CC_CONTEO" order="9" aggregationType="sum" measureType="simple" datatype="INTEGER" expressionLanguage="SQL">
+      <descriptions defaultDescription="CC_CONTEO"/>
+      <formula>1</formula>
+      
+      
+      <exceptionAggregationMetadata/>
+    </measure>
+  </calculatedMeasures>
+  <restrictedMeasures/>
+  <localDimensions/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="221" y="112"/>
+    
+      <rectangleSize width="160"/>
+    </shape>
+    <shape expanded="true" modelObjectName="P_SPFLI" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="92" y="356"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape expanded="true" modelObjectName="P_SCARR" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="302" y="356"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="J_SCARR_SPFLI" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="219" y="217"/>
+      <rectangleSize height="30" width="163"/>
+    </shape>
+    <shape modelObjectName="P_SCARR" modelObjectNameSpace="J_SCARR_SPFLI" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="16" y="16"/>
+      <rectangleSize width="149"/>
+    </shape>
+    <shape modelObjectName="P_SPFLI" modelObjectNameSpace="J_SCARR_SPFLI" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="229" y="16"/>
+      <rectangleSize width="155"/>
+    </shape></shapes>
+</layout>
+</Calculation:scenario>

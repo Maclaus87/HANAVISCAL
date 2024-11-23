@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="CalView" applyPrivilegeType="NONE" dataCategory="CUBE" schemaVersion="3.0" hierarchyGeneration="SQL" outputViewType="Aggregation" cacheInvalidationPeriod="NONE" enforceSqlExecution="true" application="BAS">
-<descriptions defaultDescription="CalView"/>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="CalViewJuank" applyPrivilegeType="NONE" dataCategory="CUBE" schemaVersion="3.0" hierarchyGeneration="SQL" outputViewType="Aggregation" cacheInvalidationPeriod="NONE" enforceSqlExecution="true" application="BAS">
+<descriptions defaultDescription="CalViewJuank"/>
 <localVariables/>
 <variableMappings/>
 <dataSources>
+  <DataSource id="com.sap::SAGENCYDATA">
+    <resourceUri>com.sap::SAGENCYDATA</resourceUri>
+  </DataSource>
   <DataSource id="com.sap::STRAVELAG">
     <resourceUri>com.sap::STRAVELAG</resourceUri>
-  </DataSource>
-  <DataSource id="com.sap::SAIRPORT">
-    <resourceUri>com.sap::SAIRPORT</resourceUri>
   </DataSource>
 </dataSources>
 <snapshotProcedures/>
@@ -16,32 +16,32 @@
   <calculationView xsi:type="Calculation:JoinView" id="Join_1" cardinality="CN_N" joinType="inner">
     <viewAttributes>
       <viewAttribute id="AGENCYNUM"/>
-      <viewAttribute id="ID"/>
+      <viewAttribute id="NUMBOOKINGS" aggregationType="sum"/>
       <viewAttribute id="NAME"/>
-      <viewAttribute hidden="true" id="JOIN$NAME$NAME"/>
+      <viewAttribute hidden="true" id="JOIN$AGENCYNUM$AGENCYNUM"/>
     </viewAttributes>
     <calculatedViewAttributes/>
-    <input node="com.sap::STRAVELAG">
+    <input node="com.sap::SAGENCYDATA">
       <mapping xsi:type="Calculation:AttributeMapping" target="AGENCYNUM" source="AGENCYNUM"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="NUMBOOKINGS" source="NUMBOOKINGS"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$AGENCYNUM$AGENCYNUM" source="AGENCYNUM"/>
+    </input>
+    <input node="com.sap::STRAVELAG">
       <mapping xsi:type="Calculation:AttributeMapping" target="NAME" source="NAME"/>
-      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$NAME$NAME" source="NAME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$AGENCYNUM$AGENCYNUM" source="AGENCYNUM"/>
     </input>
-    <input node="com.sap::SAIRPORT">
-      <mapping xsi:type="Calculation:AttributeMapping" target="ID" source="ID"/>
-      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$NAME$NAME" source="NAME"/>
-    </input>
-    <joinAttribute name="JOIN$NAME$NAME"/>
+    <joinAttribute name="JOIN$AGENCYNUM$AGENCYNUM"/>
   </calculationView>
   <calculationView xsi:type="Calculation:RankView" id="Rank_1">
     <viewAttributes>
       <viewAttribute id="AGENCYNUM"/>
-      <viewAttribute id="ID"/>
+      <viewAttribute id="NUMBOOKINGS" aggregationType="sum"/>
       <viewAttribute id="NAME"/>
     </viewAttributes>
     <calculatedViewAttributes/>
     <input node="Join_1"/>
     <rankingFilter type="RANK" offset="0" offsetReference="FRONT" dynamicPartitionAttributes="false">
-      <order byViewAttributeName="ID" direction="DESC"/>
+      <order byViewAttributeName="NUMBOOKINGS" direction="DESC"/>
       <rankThreshold>
         <value>5</value>
       </rankThreshold>
@@ -55,17 +55,19 @@
       <descriptions defaultDescription="AGENCYNUM"/>
       <keyMapping columnObjectName="Rank_1" columnName="AGENCYNUM"/>
     </attribute>
-    <attribute id="ID" order="2" displayAttribute="false" attributeHierarchyActive="false">
-      <descriptions defaultDescription="ID"/>
-      <keyMapping columnObjectName="Rank_1" columnName="ID"/>
-    </attribute>
     <attribute id="NAME" order="3" displayAttribute="false" attributeHierarchyActive="false">
       <descriptions defaultDescription="NAME"/>
       <keyMapping columnObjectName="Rank_1" columnName="NAME"/>
     </attribute>
   </attributes>
   <calculatedAttributes/>
-  <baseMeasures/>
+  <baseMeasures>
+    <measure id="NUMBOOKINGS" order="2" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="NUMBOOKINGS"/>
+      <measureMapping columnObjectName="Rank_1" columnName="NUMBOOKINGS"/>
+      <exceptionAggregationMetadata/>
+    </measure>
+  </baseMeasures>
   <calculatedMeasures/>
   <restrictedMeasures/>
   <localDimensions/>
@@ -83,15 +85,14 @@
       <upperLeftCorner x="92" y="322"/>
       <rectangleSize height="30" width="160"/>
     </shape>
+    <shape modelObjectName="com.sap::SAGENCYDATA" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="402" y="31"/>
+      <rectangleSize width="211"/>
+    </shape>
     <shape modelObjectName="com.sap::STRAVELAG" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
-      <upperLeftCorner x="20" y="30"/>
+      <upperLeftCorner x="69" y="37"/>
       <rectangleSize width="193"/>
     </shape>
-    <shape modelObjectName="com.sap::SAIRPORT" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
-      <upperLeftCorner x="320" y="30"/>
-      <rectangleSize width="182"/>
-    </shape>
-  
     <shape expanded="true" modelObjectName="Rank_1" modelObjectNameSpace="CalculationView">
       <upperLeftCorner x="92" y="217"/>
       <rectangleSize height="30" width="160"/>

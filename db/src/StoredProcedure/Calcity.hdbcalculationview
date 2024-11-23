@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="Calcity" applyPrivilegeType="NONE" dataCategory="CUBE" schemaVersion="3.0" hierarchyGeneration="SQL" outputViewType="Aggregation" cacheInvalidationPeriod="NONE" enforceSqlExecution="true" application="BAS">
+<descriptions defaultDescription="Calcity"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="com.sap::STRAVELAG">
+    <resourceUri>com.sap::STRAVELAG</resourceUri>
+  </DataSource>
+  <DataSource id="com.sap::SAGENCYDATA">
+    <resourceUri>com.sap::SAGENCYDATA</resourceUri>
+  </DataSource>
+</dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="P_STRAVELAG">
+    <viewAttributes>
+      <viewAttribute id="AGENCYNUM"/>
+      <viewAttribute id="CITY"/>
+      <viewAttribute id="TELEPHONE"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="com.sap::STRAVELAG"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="P_SAGENCYDATA">
+    <viewAttributes>
+      <viewAttribute id="AGENCYNUM"/>
+      <viewAttribute id="NUMBOOKINGS"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="com.sap::SAGENCYDATA"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="J_STRAVELAG_SAGENCYDATA" cardinality="CN_N" joinType="inner">
+    <viewAttributes>
+      <viewAttribute id="AGENCYNUM"/>
+      <viewAttribute id="CITY"/>
+      <viewAttribute id="TELEPHONE"/>
+      <viewAttribute id="NUMBOOKINGS" aggregationType="sum"/>
+      <viewAttribute hidden="true" id="JOIN$AGENCYNUM$AGENCYNUM"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="P_STRAVELAG">
+      <mapping xsi:type="Calculation:AttributeMapping" target="AGENCYNUM" source="AGENCYNUM"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CITY" source="CITY"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="TELEPHONE" source="TELEPHONE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$AGENCYNUM$AGENCYNUM" source="AGENCYNUM"/>
+    </input>
+    <input node="P_SAGENCYDATA">
+      <mapping xsi:type="Calculation:AttributeMapping" target="NUMBOOKINGS" source="NUMBOOKINGS"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$AGENCYNUM$AGENCYNUM" source="AGENCYNUM"/>
+    </input>
+    <joinAttribute name="JOIN$AGENCYNUM$AGENCYNUM"/>
+  </calculationView>
+</calculationViews>
+
+<logicalModel id="J_STRAVELAG_SAGENCYDATA">
+  <attributes>
+    <attribute id="AGENCYNUM" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="AGENCYNUM"/>
+      <keyMapping columnObjectName="J_STRAVELAG_SAGENCYDATA" columnName="AGENCYNUM"/>
+    </attribute>
+    <attribute id="CITY" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CITY"/>
+      <keyMapping columnObjectName="J_STRAVELAG_SAGENCYDATA" columnName="CITY"/>
+    </attribute>
+    <attribute id="TELEPHONE" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="TELEPHONE"/>
+      <keyMapping columnObjectName="J_STRAVELAG_SAGENCYDATA" columnName="TELEPHONE"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures>
+    <measure id="NUMBOOKINGS" order="4" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="NUMBOOKINGS"/>
+      <measureMapping columnObjectName="J_STRAVELAG_SAGENCYDATA" columnName="NUMBOOKINGS"/>
+      <exceptionAggregationMetadata/>
+    </measure>
+  </baseMeasures>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+  <localDimensions/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="221.11302679000914" y="112"/>
+    
+      <rectangleSize width="160"/>
+    </shape>
+    
+  
+    <shape expanded="true" modelObjectName="P_STRAVELAG" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="114" y="356.9999988079071"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape expanded="true" modelObjectName="P_SAGENCYDATA" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="347.00000000000006" y="356.9999988079071"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape expanded="true" modelObjectName="J_STRAVELAG_SAGENCYDATA" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="221.1130267900091" y="217"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape modelObjectName="P_STRAVELAG" modelObjectNameSpace="J_STRAVELAG_SAGENCYDATA" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="157.50537109375"/>
+    </shape>
+    <shape modelObjectName="P_SAGENCYDATA" modelObjectNameSpace="J_STRAVELAG_SAGENCYDATA" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="169.72998046875"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

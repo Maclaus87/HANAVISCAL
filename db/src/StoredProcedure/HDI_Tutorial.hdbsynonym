@@ -16,5 +16,35 @@
       "object": "SAIRPORT",
       "schema": "SFLIGHT"
     }
+  },
+  "com.sap::SAGENCYDATA": {
+    "target": {
+      "object": "SAGENCYDATA",
+      "schema": "SFLIGHT"
+    }
+  },
+  "com.sap::SBUSPART": {
+    "target": {
+      "object": "SBUSPART",
+      "schema": "SFLIGHT"
+    }
+  },
+  "com.sap::SGEOCITY": {
+    "target": {
+      "object": "SGEOCITY",
+      "schema": "SFLIGHT"
+    }
+  },
+  "com.sap::SCITAIRP": {
+    "target": {
+      "object": "SCITAIRP",
+      "schema": "SFLIGHT"
+    }
+  },
+  "com.sap::SCUSTOM": {
+    "target": {
+      "object": "SCUSTOM",
+      "schema": "SFLIGHT"
+    }
   }
 }
