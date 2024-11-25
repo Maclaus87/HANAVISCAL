@@ -1,0 +1,15 @@
+PROCEDURE "SPIN_HORARIOCIT"(IN C_ID VARCHAR(3) )
+   LANGUAGE SQLSCRIPT
+   SQL SECURITY INVOKER
+   --DEFAULT SCHEMA <default_schema_name>
+   --READS SQL DATA 
+   AS
+BEGIN
+   /*************************************
+       Write your procedure logic
+   *************************************/
+
+SELECT MANDT, TIME_ZONE, NAME
+FROM "com.sap::SAIRPORT" WHERE ID =:C_ID;
+
+END

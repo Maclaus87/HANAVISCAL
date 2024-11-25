@@ -13,7 +13,13 @@
   },
   "com.sap::SPFLI": {
     "target": {
-      "object": "SPFLI",
+      "object": "SAIRPORT",
+      "schema": "SFLIGHT"
+    }
+  },
+  "com.sap::SAIRPORT": {
+    "target": {
+      "object": "SAIRPORT",
       "schema": "SFLIGHT"
     }
   }
