@@ -22,5 +22,11 @@
       "object": "SAIRPORT",
       "schema": "SFLIGHT"
     }
+  },
+  "com.sap::SBUSPART": {
+    "target": {
+      "object": "SBUSPART",
+      "schema": "SFLIGHT"
+    }
   }
 }

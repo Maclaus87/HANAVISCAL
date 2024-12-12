@@ -83,31 +83,31 @@
 <layout>
   <shapes>
     <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
-      <upperLeftCorner x="221.11302679000914" y="112"/>
+      <upperLeftCorner x="221" y="112"/>
     
       <rectangleSize width="160"/>
     </shape>
     
   
     <shape expanded="true" modelObjectName="P_STRAVELAG" modelObjectNameSpace="CalculationView">
-      <upperLeftCorner x="114" y="356.9999988079071"/>
+      <upperLeftCorner x="114" y="356"/>
       <rectangleSize height="30" width="160"/>
     </shape>
     <shape expanded="true" modelObjectName="P_SAGENCYDATA" modelObjectNameSpace="CalculationView">
-      <upperLeftCorner x="347.00000000000006" y="356.9999988079071"/>
+      <upperLeftCorner x="347" y="356"/>
       <rectangleSize height="30" width="160"/>
     </shape>
     <shape expanded="true" modelObjectName="J_STRAVELAG_SAGENCYDATA" modelObjectNameSpace="CalculationView">
-      <upperLeftCorner x="221.1130267900091" y="217"/>
+      <upperLeftCorner x="221" y="217"/>
       <rectangleSize height="30" width="160"/>
     </shape>
     <shape modelObjectName="P_STRAVELAG" modelObjectNameSpace="J_STRAVELAG_SAGENCYDATA" modelObjectType="JoinNodeInput">
       <upperLeftCorner x="20" y="30"/>
-      <rectangleSize width="157.50537109375"/>
+      <rectangleSize width="157"/>
     </shape>
     <shape modelObjectName="P_SAGENCYDATA" modelObjectNameSpace="J_STRAVELAG_SAGENCYDATA" modelObjectType="JoinNodeInput">
       <upperLeftCorner x="320" y="30"/>
-      <rectangleSize width="169.72998046875"/>
+      <rectangleSize width="169"/>
     </shape>
   </shapes>
 </layout>

@@ -94,7 +94,7 @@
       <upperLeftCorner x="-33" y="349"/>
       <rectangleSize height="30" width="160"/>
     </shape>
-    <shape expanded="true" modelObjectName="P_SBOOK" modelObjectNameSpace="CalculationView">
+    <shape expanded="false" modelObjectName="P_SBOOK" modelObjectNameSpace="CalculationView">
       <upperLeftCorner x="250" y="349"/>
       <rectangleSize height="30" width="160"/>
     </shape>
@@ -104,11 +104,11 @@
     </shape>
     <shape modelObjectName="P_SBUSPART" modelObjectNameSpace="J_SBUSPART_SBOOK" modelObjectType="JoinNodeInput">
       <upperLeftCorner x="20" y="30"/>
-      <rectangleSize width="157.5"/>
+      <rectangleSize width="157"/>
     </shape>
     <shape modelObjectName="P_SBOOK" modelObjectNameSpace="J_SBUSPART_SBOOK" modelObjectType="JoinNodeInput">
       <upperLeftCorner x="320" y="30"/>
-      <rectangleSize width="161.16845703125"/>
+      <rectangleSize width="161"/>
     </shape>
   </shapes>
 </layout>

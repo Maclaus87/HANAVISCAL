@@ -1,0 +1,23 @@
+FUNCTION "TF_PRECIOS"( )
+    RETURNS table(
+        PRECIOS_NAME VARCHAR(25),
+        PRECIOS_RESERVA VARCHAR(100),
+        PRECIOS_MONEDA VARCHAR(50),
+        CONTPHONO VARCHAR(50)
+    )
+    LANGUAGE SQLSCRIPT
+    SQL SECURITY INVOKER 
+    AS
+BEGIN
+        /*****************************
+        Write your function logic
+    ****************************/
+
+    RETURN SELECT 
+    BPA.PASSNAME AS PRECIOS_NAME,
+      BPA.LOCCURAM AS PRECIOS_RESERVA,
+      BPA.FORCURAM AS PRECIOS_MONEDA,
+      ADR.CONTPHONO  
+    FROM "com.sap::SBOOK" AS BPA INNER JOIN "com.sap::SBUSPART" AS ADR
+        ON BPA."PASSNAME" = ADR."CONTACT" WHERE CLASS = 'Y';
+END;
