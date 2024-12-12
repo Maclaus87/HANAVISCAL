@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="Cv_spfli" applyPrivilegeType="NONE" dataCategory="CUBE" schemaVersion="3.0" hierarchyGeneration="SQL" outputViewType="Aggregation" application="BAS" cacheInvalidationPeriod="NONE" enforceSqlExecution="true">
+<descriptions defaultDescription="Cv_spfli.hdbcalculationview"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="com.sap::SPFLI">
+    <resourceUri>com.sap::SPFLI</resourceUri>
+  </DataSource>
+</dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="P_SPFLI_CALCULATIN">
+    <viewAttributes>
+      <viewAttribute id="MANDT"/>
+      <viewAttribute id="CARRID"/>
+      <viewAttribute id="CONNID"/>
+      <viewAttribute id="COUNTRYFR"/>
+      <viewAttribute id="DISTANCE"/>
+      <viewAttribute id="PERIOD"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="com.sap::SPFLI"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:UnionView" id="U_SP">
+    <viewAttributes>
+      <viewAttribute id="MANDT"/>
+      <viewAttribute id="CARRID"/>
+      <viewAttribute id="CONNID"/>
+      <viewAttribute id="COUNTRYFR"/>
+      <viewAttribute id="DISTANCE" aggregationType="sum"/>
+      <viewAttribute id="PERIOD" aggregationType="sum"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="P_SPFLI_CALCULATIN">
+      <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CARRID" source="CARRID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CONNID" source="CONNID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="COUNTRYFR" source="COUNTRYFR"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="DISTANCE" source="DISTANCE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="PERIOD" source="PERIOD"/>
+    </input>
+  </calculationView>
+</calculationViews>
+<logicalModel id="U_SP">
+  <attributes>
+    <attribute id="MANDT" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="MANDT"/>
+      <keyMapping columnObjectName="U_SP" columnName="MANDT"/>
+    </attribute>
+    <attribute id="CARRID" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CARRID"/>
+      <keyMapping columnObjectName="U_SP" columnName="CARRID"/>
+    </attribute>
+    <attribute id="CONNID" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CONNID"/>
+      <keyMapping columnObjectName="U_SP" columnName="CONNID"/>
+    </attribute>
+    <attribute id="COUNTRYFR" order="4" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="COUNTRYFR"/>
+      <keyMapping columnObjectName="U_SP" columnName="COUNTRYFR"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures>
+    <measure id="DISTANCE" order="5" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="DISTANCE"/>
+      <measureMapping columnObjectName="U_SP" columnName="DISTANCE"/>
+      <exceptionAggregationMetadata/>
+    </measure>
+    <measure id="PERIOD" order="6" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="PERIOD"/>
+      <measureMapping columnObjectName="U_SP" columnName="PERIOD"/>
+      <exceptionAggregationMetadata/>
+    </measure>
+  </baseMeasures>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+  <localDimensions/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="40" y="85"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="P_SPFLI_CALCULATIN" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="115" y="288"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape expanded="true" modelObjectName="U_SP" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="110" y="196"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>
